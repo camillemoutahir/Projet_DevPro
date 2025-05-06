@@ -1,1 +1,8 @@
-<p>add-flower works!</p>
+<h3>Ajouter une fleur</h3>
+
+<form (ngSubmit)="addFlower()">
+  <input type="text" [(ngModel)]="newFlower.name" placeholder="Nom" name="name" required>
+  <input type="text" [(ngModel)]="newFlower.image_url" placeholder="URL image" name="image_url" required>
+  <input type="text" [(ngModel)]="newFlower.description" placeholder="Description" name="description">
+  <button type="submit">Ajouter</button>
+</form>

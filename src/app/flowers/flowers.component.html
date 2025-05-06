@@ -1,1 +1,7 @@
-<p>flowers works!</p>
+<h1>Liste des fleurs</h1>
+
+<app-add-flower (flowerAdded)="onFlowerAdded()"></app-add-flower>
+
+<div *ngFor="let flower of flowers">
+  <app-flower-item [flower]="flower" (flowerDeleted)="onFlowerDeleted()"></app-flower-item>
+</div>
