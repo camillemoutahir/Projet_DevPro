@@ -1,8 +1,32 @@
 <h3>Ajouter une fleur</h3>
 
-<form (ngSubmit)="addFlower()">
-  <input type="text" [(ngModel)]="newFlower.name" placeholder="Nom" name="name" required>
-  <input type="text" [(ngModel)]="newFlower.image_url" placeholder="URL image" name="image_url" required>
-  <input type="text" [(ngModel)]="newFlower.description" placeholder="Description" name="description">
-  <button type="submit">Ajouter</button>
-</form>
+
+  <ons-input 
+  type="text" 
+  [value]="newFlower.name" 
+  (input)="updateValue('name', $event)"
+  placeholder="Nom de la fleur" 
+  float>
+</ons-input>
+
+<ons-input 
+  type="text" 
+  [value]="newFlower.image_url" 
+  (input)="updateValue('image_url', $event)"
+  placeholder="URL de l'image" 
+  float>
+</ons-input>
+
+<ons-input 
+  type="text" 
+  [value]="newFlower.description" 
+  (input)="updateValue('description', $event)"
+  placeholder="Description" 
+  float>
+</ons-input>
+
+<ons-button (click)="addFlower()">
+  Ajouter la fleur
+</ons-button>
+
+
