@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlowerService } from '../services/flowers.service';
 import { Flower } from '../models/flowers.model';
-import { FlowersComponent } from '../flowers/flowers.component';
 
 @Component({
   selector: 'app-add-flower',
@@ -22,14 +21,12 @@ export class AddFlowerComponent {
     description: ''
   };
 
-  constructor(private flowerService: FlowerService,
-     private flowerComponent: FlowersComponent) {}
+  constructor(private flowerService: FlowerService) {}
 
   addFlower() {
     this.flowerService.addFlower(this.newFlower).subscribe(() => {
-      this.newFlower = { name: '', image_url: '', description: '' };
       this.flowerAdded.emit();
-      this.flowerComponent.onFlowerAdded();
+      this.newFlower = { name: '', image_url: '', description: '' }; // Reset the form
     });
   }
 }
