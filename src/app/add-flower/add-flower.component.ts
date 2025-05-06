@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FlowerService } from '../services/flowers.service';
@@ -9,7 +9,8 @@ import { Flower } from '../models/flowers.model';
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './add-flower.component.html',
-  styleUrl: './add-flower.component.scss'
+  styleUrl: './add-flower.component.scss',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA] 
 })
 export class AddFlowerComponent {
 
@@ -24,9 +25,23 @@ export class AddFlowerComponent {
   constructor(private flowerService: FlowerService) {}
 
   addFlower() {
-    this.flowerService.addFlower(this.newFlower).subscribe(() => {
-      this.flowerAdded.emit();
-      this.newFlower = { name: '', image_url: '', description: '' }; // Reset the form
-    });
+    if (this.newFlower.name && this.newFlower.image_url && this.newFlower.description) {
+
+      this.flowerService.addFlower(this.newFlower).subscribe(() => {
+        this.flowerAdded.emit(); 
+      });
+
+      // Réinitialiser le formulaire après ajout
+      this.newFlower = {
+        name: '',
+        image_url: '',
+        description: ''
+      };
+    }
   }
+  updateValue(field: "name" | "image_url" | "description", event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.newFlower[field] = target.value;
+  }
+  
 }
