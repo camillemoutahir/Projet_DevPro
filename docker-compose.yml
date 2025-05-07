@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  flowers-app:
+    build: ./backend
+    container_name: flowers-app
+    ports:
+      - "3001:3001"
+    environment:
+      - ./backend/.env
+    depends_on:
+      - flowers-db
+    volumes:
+      - ./backend:/app
+
+  flowers-db:
+    image: postgres:14
+    container_name: flowers-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+    ports:
+      - "5433:5432"
+    volumes:
+      - flowers_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d
+
+
+volumes:
+  flowers_data:

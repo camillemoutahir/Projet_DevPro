@@ -1,0 +1,12 @@
+# Ignorer node_modules pour Docker (inutile à copier)
+backend/node_modules
+frontend/node_modules
+
+# Fichiers sensibles ou inutiles
+*.log
+*.env
+
+# IDE, OS fichiers
+.vscode/
+.DS_Store
+Thumbs.db
