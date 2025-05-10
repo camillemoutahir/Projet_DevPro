@@ -1,34 +1,31 @@
 <h3>Ajouter une fleur</h3>
 
 <div class="form-row">
-  <ons-input 
-    type="text" 
-    [value]="newFlower.name" 
-    (input)="updateValue('name', $event)"
-    placeholder="Nom de la fleur" 
-    float>
-  </ons-input>
+  <input
+    type="text"
+    class="text-input"
+    [(ngModel)]="newFlower.name"
+    name="name"
+    placeholder="Nom de la fleur"
+    required
+  />
 
-  <ons-input 
-    type="text" 
-    [value]="newFlower.image_url" 
-    (input)="updateValue('image_url', $event)"
-    placeholder="URL de l'image" 
-    float>
-  </ons-input>
+  <input
+    type="text"
+    class="text-input"
+    [(ngModel)]="newFlower.image_url"
+    name="image_url"
+    placeholder="URL de l'image"
+    required
+  />
 
-  <ons-input 
-    type="text" 
-    [value]="newFlower.description" 
-    (input)="updateValue('description', $event)"
-    placeholder="Description" 
-    float>
-  </ons-input>
+  <input
+    type="text"
+    class="text-input"
+    [(ngModel)]="newFlower.description"
+    name="description"
+    placeholder="Description"
+  />
 
-  <ons-button (click)="addFlower()">
-    Ajouter la fleur
-  </ons-button>
+  <button class="button" (click)="addFlower()">Ajouter la fleur</button>
 </div>
-
-
-

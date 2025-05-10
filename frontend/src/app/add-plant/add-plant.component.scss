@@ -1,29 +1,45 @@
 .form-row {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
   align-items: flex-end;
   margin-top: 10px;
 
   .text-input,
-  .select-input,
+  .select-input {
+    height: 40px;
+    font-size: 1rem;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #6c757d;
+
+    &::placeholder {
+      color: #6c757d;
+    }
+  }
+
   .button {
     flex: 1 1 200px;
     padding: 10px;
     font-size: 1rem;
     border: 1px solid #ccc;
     border-radius: 6px;
-  }
-
-  .button {
     background-color: #4caf50;
     color: white;
-    border: none;
     cursor: pointer;
     transition: background-color 0.2s;
   }
 
   .button:hover {
     background-color: #45a049;
+  }
+}
+
+.select-input {
+  min-width: 220px;
+
+  &:invalid {
+    color: #6c757d;
   }
 }

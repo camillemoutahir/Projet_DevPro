@@ -1,16 +1,28 @@
 .form-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 10px;
   align-items: flex-end;
-  margin-bottom: 2rem;
-}
+  margin-top: 10px;
 
-.form-row ons-input {
-  flex: 1 1 200px;
-}
+  .text-input,
+  .button {
+    flex: 1 1 200px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
 
-.form-row ons-button {
-  height: 40px;
-  align-self: center;
+  .button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .button:hover {
+    background-color: #45a049;
+  }
 }
