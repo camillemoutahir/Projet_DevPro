@@ -1,37 +1,41 @@
 <h3>Ajouter une plante</h3>
 
 <div class="form-row">
-  <ons-input 
-    type="text" 
-    [(ngModel)]="newPlant.name" 
+  <input
+    type="text"
+    class="text-input"
+    [(ngModel)]="newPlant.name"
     name="name"
     placeholder="Nom de la plante"
-    float>
-  </ons-input>
+    required
+  />
 
-  <ons-select [(ngModel)]="newPlant.type_id" name="type_id" required>
+  <select
+    class="select-input"
+    [(ngModel)]="newPlant.type_id"
+    name="type_id"
+    required
+  >
     <option value="" disabled selected>Type de plante</option>
     <option *ngFor="let type of plantTypes" [value]="type.id">
       {{ type.name }} ({{ type.watering_frequency_days }} j)
     </option>
-  </ons-select>
+  </select>
 
-
-  <ons-input 
-    type="date" 
-    [(ngModel)]="newPlant.last_watered" 
+  <input
+    type="date"
+    class="text-input"
+    [(ngModel)]="newPlant.last_watered"
     name="last_watered"
-    placeholder="Dernier arrosage"
-    float>
-  </ons-input>
+  />
 
-  <ons-input 
-    type="text" 
-    [(ngModel)]="newPlant.notes" 
+  <input
+    type="text"
+    class="text-input"
+    [(ngModel)]="newPlant.notes"
     name="notes"
     placeholder="Notes"
-    float>
-  </ons-input>
+  />
 
-  <ons-button (click)="addPlant()">Ajouter la plante</ons-button>
+  <button class="button" (click)="addPlant()">Ajouter</button>
 </div>

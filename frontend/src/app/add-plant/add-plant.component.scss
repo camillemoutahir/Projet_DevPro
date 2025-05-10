@@ -5,9 +5,25 @@
   align-items: flex-end;
   margin-top: 10px;
 
-  ons-input,
-  ons-select,
-  ons-button {
+  .text-input,
+  .select-input,
+  .button {
     flex: 1 1 200px;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  .button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  .button:hover {
+    background-color: #45a049;
   }
 }
