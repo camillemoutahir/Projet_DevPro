@@ -1,0 +1,7 @@
+<div class="flower-card">
+    <h3>{{ flower.name }}</h3>
+    <img [src]="flower.image_url" alt="{{ flower.name }}" width="150">
+    <p>{{ flower.description }}</p>
+    <button (click)="deleteFlower()">Supprimer</button>
+  </div>
+  

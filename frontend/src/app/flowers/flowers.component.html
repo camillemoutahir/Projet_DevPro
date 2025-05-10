@@ -1,0 +1,16 @@
+<div class="flowers-section">
+  <h1 class="page-title">Liste des fleurs</h1>
+
+  <p class="intro-text">
+    Ce microservice permet de gérer une collection de fleurs. Vous pouvez en ajouter ou supprimer.
+  </p>
+
+  <app-add-flower (flowerAdded)="onFlowerAdded()"></app-add-flower>
+
+  <div class="flower-grid">
+    <app-flower-item *ngFor="let flower of flowers"
+                     [flower]="flower"
+                     (flowerDeleted)="onFlowerDeleted()">
+    </app-flower-item>
+  </div>
+</div>

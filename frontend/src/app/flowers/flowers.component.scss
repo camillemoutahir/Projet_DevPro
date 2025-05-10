@@ -1,0 +1,27 @@
+.flowers-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow-x: visible;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.intro-text {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+.flower-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  max-height: none;
+  overflow: visible;
+  padding: 1rem;
+}

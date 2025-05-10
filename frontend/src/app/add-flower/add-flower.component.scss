@@ -1,0 +1,16 @@
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.form-row ons-input {
+  flex: 1 1 200px;
+}
+
+.form-row ons-button {
+  height: 40px;
+  align-self: center;
+}

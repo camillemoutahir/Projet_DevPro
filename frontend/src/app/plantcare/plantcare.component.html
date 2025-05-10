@@ -1,0 +1,11 @@
+<h2>Entretien des Plantes</h2>
+
+<app-add-plant (plantAdded)="loadPlants()"></app-add-plant>
+
+<ul>
+  <li *ngFor="let plant of plants">
+    <strong>{{ plant.name }}</strong> (Dernier arrosage : {{ plant.last_watered }}) - {{ calculateWatering(plant) }}
+    <button (click)="waterPlant(plant.id)">Arroser</button>
+    <button (click)="deletePlant(plant.id)">Supprimer</button>
+  </li>
+</ul>
