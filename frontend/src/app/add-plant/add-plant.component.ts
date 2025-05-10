@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-add-plant',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  imports: [CommonModule, FormsModule], 
   templateUrl: './add-plant.component.html',
   styleUrls: ['./add-plant.component.scss']
 })
@@ -29,7 +30,7 @@ export class AddPlantComponent implements OnInit {
   }
 
   loadPlantTypes(): void {
-    this.http.get<any[]>('http://localhost:3002/api/plant-types').subscribe({
+    this.http.get<any[]>('http://localhost:3002/api/plants/plant-types').subscribe({
       next: data => this.plantTypes = data,
       error: err => console.error('Erreur lors du chargement des types de plantes', err)
     });
@@ -61,4 +62,6 @@ export class AddPlantComponent implements OnInit {
       notes: ''
     };
   }
+
+  
 }

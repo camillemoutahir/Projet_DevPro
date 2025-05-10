@@ -1,0 +1,13 @@
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-end;
+  margin-top: 10px;
+
+  ons-input,
+  ons-select,
+  ons-button {
+    flex: 1 1 200px;
+  }
+}

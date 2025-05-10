@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { FlowersComponent } from './flowers/flowers.component';
-import { PlantCareComponent } from './plantcare/plantcare.component';
+import { PlantcareComponent } from './plantcare/plantcare.component';
 
 export const routes: Routes = [
   { path: 'microservice1', component: FlowersComponent },
-  { path: 'microservice2', component: PlantCareComponent },
+  { path: 'microservice2', component: PlantcareComponent },
   { path: '', redirectTo: 'microservice1', pathMatch: 'full' }
 ];
