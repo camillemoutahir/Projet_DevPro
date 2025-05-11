@@ -18,7 +18,7 @@
   >
     <option [ngValue]="null" disabled selected hidden>Type de plante</option>
     <option *ngFor="let type of plantTypes" [value]="type.id">
-      {{ type.name }} ({{ type.watering_frequency_days }} j)
+      {{ type.name }}
     </option>
   </select>
 
