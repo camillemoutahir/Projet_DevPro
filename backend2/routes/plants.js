@@ -17,4 +17,17 @@ router.get('/plant-types', async (req, res) => {
   }
 });
 
+router.patch('/:id/water', async (req, res) => {
+  const { id } = req.params;
+  const { last_watered } = req.body;
+
+  try {
+    await pool.query('UPDATE plants SET last_watered = $1 WHERE id = $2', [last_watered, id]);
+    res.json({ message: 'Plante arrosée' });
+  } catch (err) {
+    console.error('Erreur lors de l\'arrosage de la plante', err);
+    res.status(500).json({ error: 'Erreur serveur' });
+  }
+});
+
 module.exports = router;

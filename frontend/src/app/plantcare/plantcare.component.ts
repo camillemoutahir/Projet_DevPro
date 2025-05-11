@@ -14,6 +14,7 @@ import { NgFor } from '@angular/common';
 export class PlantcareComponent implements OnInit {
   plants: any[] = [];
   plantTypes: any[] = [];
+  readonly apiUrl = 'http://localhost:3002/api/plants';
 
   constructor(private http: HttpClient) {}
 
@@ -23,84 +24,71 @@ export class PlantcareComponent implements OnInit {
   }
 
   loadPlants(): void {
-    this.http.get<any[]>('http://localhost:3002/api/plants').subscribe({
-      next: (data) => (this.plants = data),
-      error: (err) => console.error('Erreur chargement plantes', err)
+    this.http.get<any[]>(this.apiUrl).subscribe(plants => {
+      this.http.get<any[]>(`${this.apiUrl}/plant-types`).subscribe(types => {
+        this.plants = plants.map(plant => ({
+          ...plant,
+          type: types.find(t => t.id === plant.type_id)
+        }));
+      });
     });
   }
 
   loadPlantTypes(): void {
-    this.http.get<any[]>('http://localhost:3002/api/plants/plant-types').subscribe({
-      next: (data) => (this.plantTypes = data),
-      error: (err) => console.error('Erreur chargement types', err)
+    this.http.get<any[]>(`${this.apiUrl}/plant-types`).subscribe({
+      next: data => this.plantTypes = data,
+      error: err => console.error('Erreur chargement types', err)
     });
   }
 
-  getPlantTypeName(typeId: number): string {
-    const type = this.plantTypes.find((t) => t.id === typeId);
-    return type ? type.name : 'Inconnu';
-  }
-
   getWateringStatus(plant: any): string {
-    const type = this.plantTypes.find((t) => t.id === plant.type_id);
-    if (!type || !plant.last_watered) return 'Information manquante';
+    if (!plant.last_watered || !plant.type?.watering_frequency_days) return '';
 
     const last = new Date(plant.last_watered);
     const next = new Date(last);
-    next.setDate(last.getDate() + type.watering_frequency_days);
+    next.setDate(last.getDate() + plant.type.watering_frequency_days);
 
     const today = new Date();
     const diff = Math.ceil((next.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
-    if (diff <= 0) return 'À arroser aujourd’hui !';
+    if (diff <= 0) return "À arroser aujourd’hui !";
     return `À arroser dans ${diff} jour(s)`;
+  }
+
+  shouldWaterToday(plant: any): boolean {
+    if (!plant.last_watered || !plant.type?.watering_frequency_days) return false;
+
+    const lastWatered = new Date(plant.last_watered);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const nextWatering = new Date(lastWatered);
+    nextWatering.setDate(lastWatered.getDate() + plant.type.watering_frequency_days);
+    nextWatering.setHours(0, 0, 0, 0);
+
+    console.log(`[DEBUG] ${plant.name} → next: ${nextWatering.toDateString()}, today: ${today.toDateString()}`);
+    return nextWatering.getTime() <= today.getTime();
   }
 
   waterPlant(id: number): void {
     const today = new Date().toISOString().split('T')[0];
-
-    this.http.put(`http://localhost:3002/api/plants/${id}/water`, { last_watered: today }).subscribe({
-      next: () => this.loadPlants(),
-      error: (err) => console.error('Erreur mise à jour arrosage', err)
+    this.http.patch(`${this.apiUrl}/${id}/water`, { last_watered: today }).subscribe({
+      next: () => {
+        const plant = this.plants.find(p => p.id === id);
+        if (plant) {
+          plant.last_watered = today;
+        }
+      },
+      error: err => {
+        console.error('Erreur lors de l\'arrosage de la plante', err);
+      }
     });
   }
 
   deletePlant(id: number): void {
-    this.http.delete(`http://localhost:3002/api/plants/${id}`).subscribe({
+    this.http.delete(`${this.apiUrl}/${id}`).subscribe({
       next: () => this.loadPlants(),
-      error: (err) => console.error('Erreur suppression plante', err)
+      error: err => console.error('Erreur suppression plante', err)
     });
   }
-  calculateWatering(plant: any): string {
-    const today = new Date();
-    const lastWatered = new Date(plant.last_watered);
-    const type = this.plantTypes.find(t => t.id === plant.type_id);
-
-    if (!type) return 'Type inconnu';
-
-    const nextWatering = new Date(lastWatered);
-    nextWatering.setDate(lastWatered.getDate() + type.watering_frequency_days);
-
-    const diffTime = nextWatering.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    if (diffDays <= 0) {
-      return 'À arroser aujourd’hui !';
-    } else {
-      return `À arroser dans ${diffDays} jour(s)`;
-    }
-  }
-  shouldWaterToday(plant: any): boolean {
-    const type = this.plantTypes.find(t => t.id === plant.type_id);
-    if (!type) return false;
-
-    const last = new Date(plant.last_watered);
-    const next = new Date(last);
-    next.setDate(last.getDate() + type.watering_frequency_days);
-
-    const today = new Date();
-    return next.toDateString() === today.toDateString();
-  }
-
-
 }
