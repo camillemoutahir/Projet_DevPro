@@ -2,6 +2,6 @@
     <h3>{{ flower.name }}</h3>
     <img [src]="flower.image_url" alt="{{ flower.name }}" class="flower-image">
     <p>{{ flower.description }}</p>
-    <button (click)="deleteFlower()">Supprimer</button>
+    <button class="delete-button" (click)="deleteFlower()">Supprimer</button>
   </div>
   
