@@ -1,38 +1,40 @@
-<h2>Entretien des plantes</h2>
-<p>
-  Ce microservice permet de gérer les besoins en arrosage de vos plantes.
-  Vous pouvez enregistrer de nouvelles plantes, voir quand elles ont été arrosées pour la dernière fois, et les supprimer.
-</p>
+<div class="plants-section">
+  <h2 class="page-title">Entretien des plantes</h2>
+  <p class="intro-text">
+    Ce microservice permet de gérer les besoins en arrosage de vos plantes.
+    Vous pouvez enregistrer de nouvelles plantes, voir quand elles ont été arrosées pour la dernière fois, et les supprimer.
+  </p>
 
-<app-add-plant (plantAdded)="loadPlants()"></app-add-plant>
+  <app-add-plant (plantAdded)="loadPlants()"></app-add-plant>
 
-<div class="plant-list">
-  <div *ngFor="let plant of plants" class="plant-card">
-    <h3>{{ plant.name }}</h3>
+  <div class="plant-list">
+    <div *ngFor="let plant of plants" class="plant-card">
+      <h3>{{ plant.name }}</h3>
 
-    <p><strong>Type :</strong> {{ plant.type?.name || 'Inconnu' }}</p>
+      <p><strong>Type :</strong> {{ plant.type?.name || 'Inconnu' }}</p>
 
-    <p>
-      <strong>Dernier arrosage :</strong>
-      {{ plant.last_watered | date: 'dd/MM/yyyy' }}
-    </p>
+      <p>
+        <strong>Dernier arrosage :</strong>
+        {{ plant.last_watered | date: 'dd/MM/yyyy' }}
+      </p>
 
-    <p *ngIf="plant.notes"><strong>Notes :</strong> {{ plant.notes }}</p>
+      <p *ngIf="plant.notes"><strong>Notes :</strong> {{ plant.notes }}</p>
 
-    <p [ngClass]="{ 'today': shouldWaterToday(plant) }">
-      {{ getWateringStatus(plant) }}
-    </p>
+      <p [ngClass]="{ 'today': shouldWaterToday(plant) }">
+        {{ getWateringStatus(plant) }}
+      </p>
 
-    <button
-      *ngIf="shouldWaterToday(plant)"
-      (click)="waterPlant(plant.id)"
-      class="button green"
-    >
-      Arroser
-    </button>
+      <button
+        *ngIf="shouldWaterToday(plant)"
+        (click)="waterPlant(plant.id)"
+        class="button green"
+      >
+        Arroser
+      </button>
 
-    <button (click)="deletePlant(plant.id)" class="button red">
-      Supprimer
-    </button>
+      <button (click)="deletePlant(plant.id)" class="button red">
+        Supprimer
+      </button>
+    </div>
   </div>
 </div>
