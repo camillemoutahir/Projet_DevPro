@@ -1,5 +1,6 @@
 # Ignorer node_modules pour Docker (inutile à copier)
-backend/node_modules
+backend1/node_modules
+backend2/node_modules
 frontend/node_modules
 
 # Fichiers sensibles ou inutiles
