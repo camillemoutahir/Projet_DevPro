@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   flowers-app:
     build: ./backend1
@@ -23,7 +21,7 @@ services:
       - "5433:5432"
     volumes:
       - flowers_data:/var/lib/postgresql/data
-      - ./database/flowers:/docker-entrypoint-initdb.d
+      - ./backend1/database:/docker-entrypoint-initdb.d
 
   plants-app:
     build: ./backend2
@@ -47,7 +45,7 @@ services:
       - "5434:5432"
     volumes:
       - plants_data:/var/lib/postgresql/data
-      - ./database/plants:/docker-entrypoint-initdb.d
+      - ./backend2/database:/docker-entrypoint-initdb.d
 
 volumes:
   flowers_data:
