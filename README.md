@@ -42,7 +42,7 @@ Gère un carnet d'entretien de plantes :
 - Supprimer une plante
 
 
-## Conteneur Traefik (Pour Monsieur MontMoulinex)
+## Conteneur Traefik
 
 Le projet inclut un conteneur **Traefik** en reverse proxy avec dashboard intégré.
 
