@@ -1,63 +1,79 @@
-<<<<<<< HEAD
-# Projet_DevPro
-=======
-# Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.10.
+# Projet_DevPro : Application de gestion de fleurs et de plantes
 
-## Development server
+Cette application est composée de deux microservices backend (fleurs et plantes) et d'un frontend Angular pour l'interface utilisateur. Chaque microservice utilise une base de données PostgreSQL, et le tout est orchestré avec Docker Compose.
 
-To start a local development server, run:
+## Démarrage
+### Backend (fleurs et plantes)
+
+Lance les deux microservices ainsi que leurs bases de données avec la commande suivante :
 
 ```bash
+docker-compose up -d --build
+```
+
+- Microservice Fleurs accessible sur : [http://localhost:3001/api/flowers](http://localhost:3001/api/flowers)  
+- Microservice Plantes accessible sur :
+  - [http://localhost:3002/api/plants](http://localhost:3002/api/plants)
+  - [http://localhost:3002/api/plants/plant-types](http://localhost:3002/api/plants/plant-types)
+
+Chaque microservice dispose de sa propre base de données PostgreSQL, initialisée automatiquement.
+
+### Frontend (Angular)
+
+```bash
+cd frontend
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+L'interface sera disponible sur [http://localhost:4200](http://localhost:4200)
 
-## Code scaffolding
+## Fonctionnalités
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Microservice Fleurs
+Gère une collection de fleurs avec les opérations suivantes :
+- Ajouter une fleur (nom, image (URL), description)
+- Supprimer une fleur
 
-```bash
-ng generate component component-name
+### Microservice Plantes
+Gère un carnet d'entretien de plantes :
+- Ajouter une plante (nom, type, date du dernier arrosage, notes)
+- Affichage automatique des jours restants avant le prochain arrosage (ou "à arroser aujourd'hui")
+- Supprimer une plante
+
+
+## Conteneur Traefik (Pour Monsieur MontMoulinex)
+
+Le projet inclut un conteneur **Traefik** en reverse proxy avec dashboard intégré.
+
+- Voir le trafic sur : [http://localhost:8080/dashboard/#/](http://localhost:8080/dashboard/#/)
+- Accès aux APIs via HTTPS :
+  - [https://flowers.localtest.me/api/flowers](https://flowers.localtest.me/api/flowers)
+  - [https://plants.localtest.me/api/plants/plant-types](https://plants.localtest.me/api/plants/plant-types)
+
+⚠️ Vous devez avoir un certificat auto-signé configuré pour que ces liens HTTPS fonctionnent correctement en local.
+
+
+## Technologies
+
+- Angular (frontend)
+- Node.js / Express (backend)
+- PostgreSQL (base de données)
+- Docker + Docker Compose
+- Traefik (reverse proxy)
+
+## Structure du projet
+
+```
+├── backend1/             # Microservice Fleurs
+├── backend2/             # Microservice Plantes
+├── frontend/             # Interface utilisateur Angular
+├── docker-compose.yml
+└── traefik.yml           # Configuration Traefik
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Auteur
 
-```bash
-ng generate --help
-```
+- Camille Moutahir
 
-## Building
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
->>>>>>> 3452fb0 (initial commit)
